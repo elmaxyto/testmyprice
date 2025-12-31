@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "currency": "EUR",
+  "items": [
+    {
+      "nome": "Netflix",
+      "categoria": "Streaming",
+      "icona": "🍿",
+      "prezzo_mese": 13.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Disney+",
+      "categoria": "Streaming",
+      "icona": "🏰",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Amazon Prime Video",
+      "categoria": "Streaming",
+      "icona": "📦",
+      "prezzo_mese": 4.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Amazon Prime",
+      "categoria": "Altro",
+      "icona": "📦",
+      "prezzo_mese": 4.99,
+      "prezzo_anno_originale": 49.9
+    },
+    {
+      "nome": "NOW",
+      "categoria": "Streaming",
+      "icona": "📺",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Sky",
+      "categoria": "Streaming",
+      "icona": "🛰️",
+      "prezzo_mese": 14.9,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "TIMVISION",
+      "categoria": "Streaming",
+      "icona": "📡",
+      "prezzo_mese": 6.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "DAZN",
+      "categoria": "Streaming",
+      "icona": "⚽",
+      "prezzo_mese": 34.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "YouTube Premium",
+      "categoria": "Musica",
+      "icona": "▶️",
+      "prezzo_mese": 11.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Spotify Premium",
+      "categoria": "Musica",
+      "icona": "🎧",
+      "prezzo_mese": 10.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Apple Music",
+      "categoria": "Musica",
+      "icona": "🍎",
+      "prezzo_mese": 10.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Apple One",
+      "categoria": "Cloud",
+      "icona": "☁️",
+      "prezzo_mese": 19.95,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "iCloud+ 200GB",
+      "categoria": "Cloud",
+      "icona": "☁️",
+      "prezzo_mese": 2.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Google One 200GB",
+      "categoria": "Cloud",
+      "icona": "☁️",
+      "prezzo_mese": 2.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Microsoft 365",
+      "categoria": "Produttività",
+      "icona": "🧩",
+      "prezzo_mese": 6.99,
+      "prezzo_anno_originale": 69.99
+    },
+    {
+      "nome": "Adobe Creative Cloud",
+      "categoria": "Produttività",
+      "icona": "🎨",
+      "prezzo_mese": 61.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Notion Plus",
+      "categoria": "Produttività",
+      "icona": "📝",
+      "prezzo_mese": 9.5,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "ChatGPT Plus",
+      "categoria": "Produttività",
+      "icona": "🤖",
+      "prezzo_mese": 20.0,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "PlayStation Plus",
+      "categoria": "Gaming",
+      "icona": "🎮",
+      "prezzo_mese": 8.99,
+      "prezzo_anno_originale": 71.99
+    },
+    {
+      "nome": "Xbox Game Pass",
+      "categoria": "Gaming",
+      "icona": "🕹️",
+      "prezzo_mese": 14.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Nintendo Switch Online",
+      "categoria": "Gaming",
+      "icona": "🎲",
+      "prezzo_mese": 3.99,
+      "prezzo_anno_originale": 19.99
+    },
+    {
+      "nome": "Audible",
+      "categoria": "Altro",
+      "icona": "📚",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Kindle Unlimited",
+      "categoria": "Altro",
+      "icona": "📖",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Strava",
+      "categoria": "Fitness & Mind",
+      "icona": "🏃",
+      "prezzo_mese": 11.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Apple Fitness+",
+      "categoria": "Fitness & Mind",
+      "icona": "💪",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Headspace",
+      "categoria": "Fitness & Mind",
+      "icona": "🧘",
+      "prezzo_mese": 12.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Duolingo Super",
+      "categoria": "Altro",
+      "icona": "🦉",
+      "prezzo_mese": 12.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Revolut Premium",
+      "categoria": "Finanza",
+      "icona": "💳",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "N26 You",
+      "categoria": "Finanza",
+      "icona": "🏦",
+      "prezzo_mese": 9.9,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Postepay Evolution",
+      "categoria": "Finanza",
+      "icona": "🏤",
+      "prezzo_mese": 1.25,
+      "prezzo_anno_originale": 15.0
+    },
+    {
+      "nome": "Iliad (mobile)",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 9.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "ho. Mobile",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 8.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Kena Mobile",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 7.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "TIM (mobile)",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 14.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Vodafone (mobile)",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 14.99,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "Fastweb (internet)",
+      "categoria": "Telefonia",
+      "icona": "📶",
+      "prezzo_mese": 27.95,
+      "prezzo_anno_originale": null
+    },
+    {
+      "nome": "WindTre (mobile)",
+      "categoria": "Telefonia",
+      "icona": "📱",
+      "prezzo_mese": 12.99,
+      "prezzo_anno_originale": null
+    }
+  ]
+}
