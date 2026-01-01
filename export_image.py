@@ -26,7 +26,7 @@ def _wrap(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageFont, max_w
     return lines
 
 
-def build_tiktok_card(payload: dict[str, Any], size=(1080, 1920)) -> bytes:
+def build_social_card(payload: dict[str, Any], size=(1080, 1920)) -> bytes:
     W, H = size
     img = Image.new("RGB", size, (11, 18, 32))
     draw = ImageDraw.Draw(img)

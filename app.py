@@ -17,7 +17,7 @@ from calculator import (
     total_monthly,
     xp_for_action,
 )
-from export_image import build_tiktok_card
+from export_image import build_social_card
 from supabase_client import (
     delete_subscription,
     fetch_challenge,
@@ -72,7 +72,7 @@ def ss_init():
     st.session_state.setdefault("user", None)
     st.session_state.setdefault("access_token", None)
 
-    st.session_state.setdefault("is_premium", False)
+    st.session_state.setdefault("is_premium", True)
 
     st.session_state.setdefault("subs_local", [])
     st.session_state.setdefault("profile_local", {"budget_mese": 0.0, "xp": 0})
@@ -243,26 +243,27 @@ with st.expander("🔐 Login & Cloud Save (Supabase)", expanded=False):
     st.caption("Guest Mode = niente cloud save. Per tracking serio + cross-device, consigliato login.")
 
 
-with st.expander("⭐ Premium (illimitati) — €9/mese Patreon", expanded=False):
-    st.markdown(
-        """
-**Free:** fino a 3 abbonamenti.  
-**Premium:** abbonamenti illimitati + export + import template senza blocchi.
-
-👉 Distribuisci una **Premium Key** ai membri Patreon.
-"""
+st.divider()
+col_kofi_1, col_kofi_2 = st.columns([3, 1])
+with col_kofi_1:
+    st.markdown("### ☕ Ti piace StreamSaver?")
+    st.caption(
+        "Quest'app è **100% gratuita** e open source. "
+        "Se ti ho aiutato a risparmiare, puoi offrirmi un caffè simbolico!"
     )
-    patreon_url = st.secrets.get("PATREON_URL")
-    if patreon_url:
-        st.caption(f"Patreon: {patreon_url}")
-
-    key = st.text_input("Inserisci Premium Key", type="password", placeholder="STREAMSAVER-....")
-    if st.button("Attiva Premium", use_container_width=True):
-        if check_premium_key(key):
-            st.session_state.is_premium = True
-            st.success("Premium attivo ✅")
-        else:
-            st.error("Key non valida.")
+with col_kofi_2:
+    # Placeholder URL - User will update this later
+    ko_fi_url = "[https://ko-fi.com/](https://ko-fi.com/)"
+    st.markdown(
+        f"""
+        <a href="{ko_fi_url}" target="_blank">
+            <img src="[https://storage.ko-fi.com/cdn/kofi2.png?v=3](https://storage.ko-fi.com/cdn/kofi2.png?v=3)"
+                alt="Buy Me a Coffee"
+                style="height: 45px; width: auto; margin-top: 10px;" >
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 subs = get_subs()
@@ -277,10 +278,10 @@ xp = int(profile.get("xp") or 0)
 lvl, to_next = level_from_xp(xp)
 
 is_premium = bool(st.session_state.is_premium)
-limit_reached = (not is_premium) and (len(subs) >= free_limit())
+limit_reached = False
 
 tab_subs, tab_chal, tab_templates, tab_export = st.tabs(
-    ["📋 Abbonamenti", "🏁 Challenge", "⚡ Setup", "📸 Export TikTok"]
+    ["📋 Abbonamenti", "🏁 Challenge", "⚡ Setup", "📸 Export Poster"]
 )
 
 with tab_subs:
@@ -303,9 +304,6 @@ with tab_subs:
 """,
         unsafe_allow_html=True,
     )
-
-    if limit_reached:
-        st.warning(f"Free limit raggiunto: {free_limit()} abbonamenti. Attiva Premium per illimitati.")
 
     st.markdown("### 🎯 Budget Goal")
     new_budget = st.number_input("Budget mensile (€)", min_value=0.0, value=float(budget), step=5.0)
@@ -506,7 +504,7 @@ with tab_subs:
 
 
 with tab_chal:
-    st.markdown("### 🏁 Challenge Risparmio (TikTok Viral)")
+    st.markdown("### 🏁 Challenge Risparmio")
 
     ch = challenge or {}
     active = bool(ch.get("active"))
@@ -638,7 +636,7 @@ with tab_templates:
     st.markdown(
         f"""
 <div class="ss-card">
-  <div class="ss-muted">Hook (apertura TikTok)</div>
+  <div class="ss-muted">Hook (Incipit video)</div>
   <div class="ss-big">🎬 {tpl['hook']}</div>
 </div>
 """,
@@ -651,57 +649,54 @@ with tab_templates:
     st.markdown("**Hashtags:**")
     st.code(" ".join(tpl["hashtags"]), language="text")
 
-    if not is_premium and len(get_subs()) >= free_limit():
-        st.warning("Free limit raggiunto: non puoi importare altri abbonamenti dal template.")
-    else:
-        if st.button("➕ Importa abbonamenti del template", use_container_width=True):
-            subs_now = get_subs()
-            remaining_slots = 10**9 if is_premium else max(0, free_limit() - len(subs_now))
-            to_add = tpl.get("items", [])[:remaining_slots]
+    if st.button("➕ Importa abbonamenti del template", use_container_width=True):
+        subs_now = get_subs()
+        remaining_slots = 10**9 if is_premium else max(0, free_limit() - len(subs_now))
+        to_add = tpl.get("items", [])[:remaining_slots]
 
-            added = 0
-            for item in to_add:
-                name = item.get("nome")
-                uses = int(item.get("utilizzi_mese") or 0)
-                p = preset_by_name(name) or {
-                    "nome": name,
-                    "categoria": "Altro",
-                    "icona": "💳",
-                    "prezzo_mese": 0.0,
-                    "prezzo_anno_originale": None,
-                }
-                row = {
-                    "nome": p.get("nome"),
-                    "categoria": p.get("categoria", "Altro"),
-                    "icona": p.get("icona", "💳"),
-                    "tipo_pagamento": "mensile",
-                    "prezzo_mese": float(p.get("prezzo_mese") or 0.0),
-                    "prezzo_anno_originale": p.get("prezzo_anno_originale"),
-                    "utilizzi_mese": uses,
-                    "data_rinnovo": None,
-                    "custom": False if preset_by_name(name) else True,
-                }
+        added = 0
+        for item in to_add:
+            name = item.get("nome")
+            uses = int(item.get("utilizzi_mese") or 0)
+            p = preset_by_name(name) or {
+                "nome": name,
+                "categoria": "Altro",
+                "icona": "💳",
+                "prezzo_mese": 0.0,
+                "prezzo_anno_originale": None,
+            }
+            row = {
+                "nome": p.get("nome"),
+                "categoria": p.get("categoria", "Altro"),
+                "icona": p.get("icona", "💳"),
+                "tipo_pagamento": "mensile",
+                "prezzo_mese": float(p.get("prezzo_mese") or 0.0),
+                "prezzo_anno_originale": p.get("prezzo_anno_originale"),
+                "utilizzi_mese": uses,
+                "data_rinnovo": None,
+                "custom": False if preset_by_name(name) else True,
+            }
 
-                if is_authed():
-                    row["user_id"] = st.session_state.user["id"]
-                    upsert_subscription(st.session_state.access_token, row)
-                else:
-                    local = list(st.session_state.subs_local)
-                    local.insert(0, row)
-                    set_subs_local(local)
+            if is_authed():
+                row["user_id"] = st.session_state.user["id"]
+                upsert_subscription(st.session_state.access_token, row)
+            else:
+                local = list(st.session_state.subs_local)
+                local.insert(0, row)
+                set_subs_local(local)
 
-                added += 1
+            added += 1
 
-            profile = award_xp(profile, "import_template")
-            save_profile(profile)
-            st.success(f"Import completato ✅ (+{added} abbonamenti)")
-            st.rerun()
+        profile = award_xp(profile, "import_template")
+        save_profile(profile)
+        st.success(f"Import completato ✅ (+{added} abbonamenti)")
+        st.rerun()
 
     st.caption("Tip virale: registra schermo mentre sistemi “costo/uso” e fai il reveal dello spreco.")
 
 
 with tab_export:
-    st.markdown("### 📸 Export 1080×1920 (TikTok-ready)")
+    st.markdown("### 📸 Export Poster (9:16)")
     subs_now = get_subs()
 
     if not subs_now:
@@ -735,10 +730,10 @@ with tab_export:
             "worst_cpu": worst_cpu_txt,
             "challenge_title": challenge_title,
             "streak_days": streak,
-            "footer": "Condividi questo poster su TikTok: #BudgetTech #Risparmio",
+            "footer": "Condividi questo poster sui social: #BudgetTech #Risparmio",
         }
 
-        img_bytes = build_tiktok_card(payload, size=config.EXPORT_SIZE)
+        img_bytes = build_social_card(payload, size=config.EXPORT_SIZE)
 
         st.image(img_bytes, caption="Anteprima poster (1080×1920)", use_container_width=True)
 
@@ -747,7 +742,7 @@ with tab_export:
             st.download_button(
                 "⬇️ Scarica PNG",
                 data=img_bytes,
-                file_name="streamsaver_tiktok_poster.png",
+                file_name="streamsaver_social_poster.png",
                 mime="image/png",
                 use_container_width=True,
             )
@@ -766,3 +761,21 @@ with tab_export:
         )
         st.code(caption, language="text")
         st.caption("Tip: usa la preview + hook del template e fai un 'reveal' del peggior costo/uso.")
+
+
+st.divider()
+st.markdown(
+    """
+    <div style='text-align: center; color: #6b7280; font-size: 0.8rem;'>
+        <p>
+            <strong>Disclaimer:</strong> StreamSaver è un tool a scopo informativo e di intrattenimento.
+            I calcoli si basano sui dati inseriti dall'utente.
+            L'autore non si assume responsabilità per decisioni finanziarie, cancellazioni di abbonamenti o perdite di dati.
+            <br>
+            Non condividiamo i tuoi dati con terze parti.
+        </p>
+        <p>Made with 💚 by Budget Tech ITA</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)

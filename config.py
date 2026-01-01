@@ -43,7 +43,7 @@ TEMPLATES = [
             "2) Metto utilizzi/mese REALI.",
             "3) Tengo solo i 2 con costo/uso più basso.",
         ],
-        "hashtags": ["#netflix", "#streaming", "#soldi", "#consigli", "#tiktokitalia"],
+        "hashtags": ["#netflix", "#streaming", "#soldi", "#consigli", "#risparmio"],
         "items": [
             {"nome": "Netflix", "utilizzi_mese": 6},
             {"nome": "Disney+", "utilizzi_mese": 2},
