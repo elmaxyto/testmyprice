@@ -34,7 +34,7 @@ from supabase_client import (
 
 st.set_page_config(
     page_title=config.APP_NAME,
-    page_icon="💚",
+    page_icon="Budget Tech ITA.png",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
@@ -65,6 +65,38 @@ div[data-testid="stToolbar"] { visibility: hidden; height: 0px; }
 </style>
 """
 st.markdown(MOBILE_CSS, unsafe_allow_html=True)
+
+HEADER_CSS = """
+<style>
+/* Remove default streamlit top padding */
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/* Title Styling with Gradient */
+.header-title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 3rem; /* Adjusted for horizontal layout */
+    font-weight: 800;
+    background: -webkit-linear-gradient(45deg, #22c55e, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    line-height: 1.1;
+}
+.header-subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-top: 5px;
+}
+/* Fix top padding to pull title up slightly if needed */
+.header-text-box {
+    padding-top: 10px; 
+}
+</style>
+"""
+st.markdown(HEADER_CSS, unsafe_allow_html=True)
 
 
 def ss_init():
@@ -190,8 +222,20 @@ def free_limit() -> int:
     return config.DEFAULT_FREE_LIMIT
 
 
-st.markdown(f"## 💚 {config.APP_NAME}")
-st.markdown(f"<div class='ss-muted'>{config.TAGLINE}</div>", unsafe_allow_html=True)
+col_logo, col_text = st.columns([1, 5])
+
+with col_logo:
+    st.image("Budget Tech ITA.png", width=85)
+
+with col_text:
+    st.markdown("""
+    <div class="header-text-box">
+        <div class="header-title">StreamSaver</div>
+        <div class="header-subtitle">by Budget Tech ITA</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown(f"<div style='text-align: center; color: #94a3b8; font-size: 1.1rem;'>{config.TAGLINE}</div>", unsafe_allow_html=True)
 
 
 with st.expander("🔐 Login & Cloud Save (Supabase)", expanded=False):
@@ -252,8 +296,7 @@ with col_kofi_1:
         "Se ti ho aiutato a risparmiare, puoi offrirmi un caffè simbolico!"
     )
 with col_kofi_2:
-    # Placeholder URL - User will update this later
-    ko_fi_url = "[https://ko-fi.com/](https://ko-fi.com/)"
+    ko_fi_url = "https://ko-fi.com/budgettechita"
     st.markdown(
         f"""
         <a href="{ko_fi_url}" target="_blank">
